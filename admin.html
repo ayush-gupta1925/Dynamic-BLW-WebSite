@@ -1,0 +1,57 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login - BLW</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+
+  
+      <ul>
+
+        <li><a href="index.html">Home</a></li>
+        <li><a href="departments.html">Departments</a></li>
+        <li><a href="engine.html">Engine Parts</a></li>
+        <li><a href="places.html">Places</a></li>
+        <li><a href="employees.html">Employees</a></li>
+        <li><a href="report.html">Report Issue</a></li>
+        <li><a href="admin.html" class="active act">Admin Panel</a></li>
+         </ul>
+      </nav>
+    </div>
+  </header>
+    
+
+  <main class="admin-login-section">
+      <h2 class="welcome-heading">Admin Panel Login</h2>
+
+    <form class="admin-form" id="adminLoginForm">
+      <label for="username">Username</label>
+      <input type="text" id="username" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="adminLoginMsg" class="login-message"></p>
+  </main>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

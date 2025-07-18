@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Departments - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+   <header>
+  <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="admin_dashboard.html">Dashboard</a></li>
+        <li><a href="admin.html">Logout</a></li>
+          </ul>
+      </nav>
+    </div>
+  </header>
+         
+
+  <main class="form-container">
+   <h2 class="welcome-heading">Add Department</h2>
+     <form id="addDeptForm">
+    <input type="text" id="deptName" placeholder="Department Name" required />
+    <input type="text" id="deptHod" placeholder="HOD Name" required />
+    <textarea id="deptDesc" placeholder="Description" required></textarea>
+    <button type="submit">Add Department</button>
+  </form>
+
+   
+  </main>
+
+  
+
+  <script>
+  document.getElementById("addDeptForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      console.log("Form submitted");
+
+      const name = document.getElementById("deptName").value.trim();
+      const hod = document.getElementById("deptHod").value.trim();
+      const desc = document.getElementById("deptDesc").value.trim();
+
+      if (!name || !hod || !desc) {
+          alert("Please fill all fields.");
+          return;
+      }
+
+      const newDept = { name, hod, desc };
+
+      let departments = JSON.parse(localStorage.getItem("departments")) || [];
+      departments.push(newDept);
+      localStorage.setItem("departments", JSON.stringify(departments));
+
+      alert("Department added successfully!");
+      this.reset();
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Employees - Admin</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+   <header>
+  <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+      <ul>
+         <li><a href="index.html">Home</a></li>
+        <li><a href="admin_dashboard.html">Dashboard</a></li>
+        <li><a href="admin.html">Logout</a></li>
+         </ul>
+      </nav>
+    </div>
+  </header>
+        
+
+  <main class="form-container">
+ <h2 class="welcome-heading">Add Employee</h2>
+    <form id="employeeForm">
+      <input type="text" id="empName" placeholder="Employee Name" required />
+      <input type="text" id="empDept" placeholder="Department" required />
+      <input type="text" id="empPost" placeholder="Position" required />
+     
+      <button type="submit">Add Employee</button>
+    </form>
+
+  </main>
+    <!-- <h3>Employees:</h3>
+  <div id="employeeList"></div> -->
+
+ <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const empForm = document.getElementById('employeeForm');
+    const empList = document.getElementById('employeeList');
+
+    let employees = JSON.parse(localStorage.getItem('employees')) || [];
+
+    const renderEmployees = () => {
+      empList.innerHTML = '';
+      employees.forEach(emp => {
+        empList.innerHTML += `
+          <div class="card">
+            <h3>${emp.name}</h3>
+            <p><strong>Department:</strong> ${emp.dept}</p>
+            <p><strong>Position:</strong> ${emp.post}</p>
+          </div>
+        `;
+      });
+    };
+
+    empForm?.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('empName').value.trim();
+      const dept = document.getElementById('empDept').value.trim();
+      const post = document.getElementById('empPost').value.trim();
+
+      if (!name || !dept || !post) {
+        alert("All fields are required!");
+        return;
+      }
+
+      const newEmp = { name, dept, post };
+      employees.push(newEmp);
+      localStorage.setItem('employees', JSON.stringify(employees));
+
+      empForm.reset();
+      alert("Employee added successfully!");
+      renderEmployees();
+    });
+
+    renderEmployees();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLW - Varanasi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+   <link rel="stylesheet" href="style.css" />
+  
+ 
+</head>
+<body>
+
+  <!-- HEADER WITH NAVBAR -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="departments.html" class="active act">Departments</a></li>
+          <li><a href="engine.html">Engine Parts</a></li>
+          <li><a href="places.html">Places</a></li>
+          <li><a href="employees.html">Employees</a></li>
+          <li><a href="report.html">Report Issue</a></li>
+          <li><a href="admin.html">Admin Panel</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+
+  <main class="department-section">
+    <h2 class="welcome-heading">Our Departments</h2>
+    <div class="search-box">
+      <input type="text" id="searchDept" placeholder="Search Department" onkeyup="searchDepartment()">
+    </div>
+      <div id="noDataMessage" style="display: none; text-align:center; margin-top:20px; color: rgb(236, 10, 10);">
+    No departments found.
+  </div>
+    <div class="departments" id="deptList">
+      <!-- Departments will be inserted here -->
+    </div>
+  </main>
+
+ <footer>
+    <div class="footer-container">
+
+      <div class="footer-section">
+        <h3>Banaras Locomotive Works (BLW)</h3>
+        <p>BLW, Varanasi is one of the major production units of Indian Railways, manufacturing world-class electric locomotives and driving modernization in rail transport.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4> Contact Us</h4>
+        <p>
+          BLW Campus,<br>
+          Manduadih, Varanasi - 221004,<br>
+          Uttar Pradesh, India<br>
+          📞 Phone: 0542-2270589-90<br>
+          📧 Email: <a href="https://blw.indianrailways.gov.in/view_section.jsp?lang=0&id=0,300,451" target="_blank">info@blwvaranasi.in</a>
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4> Useful Links</h4>
+        <ul>
+          
+          <li><a href="departments.html">Departments</a></li>
+          <li><a href="employees.html">Employee Directory</a></li>
+          <li><a href="report.html">Report Issue</a></li>
+          <li><a href="https://blw.indianrailways.gov.in/view_section.jsp?lang=0&id=0,300,434" target="_blank">Privacy Policy</a></li>
+          <li><a href="https://blw.indianrailways.gov.in/view_section.jsp?lang=0&id=0,300,425" target="_blank">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section htt ">
+        <h4> Connect With Us</h4>
+      <div  class="vt">
+          <a href="https://x.com/blwvaranasi" target="_blank"><i class="fa-brands fa-twitter"></i>    twitter</a>
+          <a href="https://www.youtube.com/@blw_varanasi" target="_blank"><i class="fa-brands fa-youtube"></i> youtube</a>
+          <a href="https://www.threads.com/@blwvaranasi?xmt=AQF0gtMWXjozJDNvXzLbspE00luQT6X4w8PKTO7LvDeSePc" target="_blank"><i class="fa-brands fa-instagram"></i> instagram</a>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Banaras Locomotive Works (BLW) Clone Project | Developed by Student</p>
+      <p>This is an educational project. For official info, visit 
+        <a href="https://blw.indianrailways.gov.in/" target="_blank">blw.indianrailways.gov.in</a>
+      </p>
+    </div>
+  </footer>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+  <!-- <button onclick="resetDepartments()">Reset to Default</button> -->
+
+  <script>
+    function resetDepartments() {
+  localStorage.removeItem("departments");
+  location.reload(); // Page reload karega aur new default load karega
+}
+
+
+  const staticDepartments = [
+  
+  ];
+
+  // Get dynamic departments from localStorage
+  const dynamicDepartments = JSON.parse(localStorage.getItem("departments")) || [];
+
+  // Combine static + dynamic
+  const allDepartments = [...staticDepartments, ...dynamicDepartments];
+
+  const deptList = document.getElementById("deptList");
+
+  function displayDepartments(departments) {
+    deptList.innerHTML = "";
+    
+  if (departments.length === 0) {
+    deptList.innerHTML = `
+      <div style="text-align: center; color: black; margin-top: 20px; font-size:25px">
+        No departments found.
+      </div>
+    `;
+    return;
+  }
+    departments.forEach(dept => {
+      deptList.innerHTML += `
+        <div class="dept-card">
+          <h3>${dept.name}</h3>
+          <p><strong>HOD:</strong> ${dept.hod}</p>
+          <p>${dept.desc}</p>
+        </div>
+      `;
+    });
+  }
+
+  function searchDepartment() {
+    const query = document.getElementById("searchDept").value.toLowerCase();
+    const filtered = allDepartments.filter(dept =>
+      dept.name.toLowerCase().includes(query) ||
+      dept.hod.toLowerCase().includes(query) ||
+      dept.desc.toLowerCase().includes(query)
+    );
+    displayDepartments(filtered);
+  }
+
+  displayDepartments(allDepartments);
+</script>
+
+  <script src="https://kit.fontawesome.com/a20eba869b.js" crossorigin="anonymous"></script>
+</body>
+</html>

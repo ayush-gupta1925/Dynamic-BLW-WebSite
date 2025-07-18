@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Engine Parts - Admin</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+
+  
+      <ul>
+
+         <li><a href="index.html">Home</a></li>
+        <li><a href="admin_dashboard.html">Dashboard</a></li>
+        <li><a href="admin.html">Logout</a></li>
+          </ul>
+      </nav>
+    </div>
+  </header>
+    
+
+  <main class="form-container">
+   <h2 class="welcome-heading">Add Engine Part</h2>
+  <form id="enginePartForm">
+    <input type="text" id="partName" placeholder="Part Name" required />
+    <!-- Removed Part Type Field -->
+    <input type="url" id="partImage" placeholder="Image URL" />
+     <div class="or-separator">OR</div>
+    <input type="file" id="partImageFile" accept="image/*" />
+    <textarea id="partDesc" placeholder="Description" required></textarea>
+    <button type="submit">Add Part</button>
+  </form>
+</main>
+
+<!-- 
+<main class="form-container">
+  <h2>Add Engine Part</h2>
+  <form id="enginePartForm">
+    <input type="text" id="partName" placeholder="Part Name" required />
+    <input type="file" id="partImageFile" accept="image/*" required />
+    <textarea id="partDesc" placeholder="Description" required></textarea>
+    <button type="submit">Add Part</button>
+  </form>
+
+  
+</main> -->
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('enginePartForm');
+  const list = document.getElementById('enginePartsList');
+  const parts = JSON.parse(localStorage.getItem('engineParts')) || [];
+
+  const renderParts = () => {
+    list.innerHTML = '';
+    parts.forEach(part => {
+      list.innerHTML += `
+        <div class="card">
+          <h3>${part.name}</h3>
+          <img src="${part.image}" alt="${part.name}" style="max-width: 100px;" />
+          <p>${part.desc}</p>
+        </div>
+      `;
+    });
+  };
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('partName').value.trim();
+    const fileInput = document.getElementById('partImageFile');
+    const desc = document.getElementById('partDesc').value.trim();
+
+    if (fileInput.files.length === 0) {
+      alert('Please upload an image file.');
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageSrc = e.target.result;
+      savePart(name, imageSrc, desc);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function savePart(name, image, desc) {
+    const newPart = { name, image, desc };
+    parts.push(newPart);
+    localStorage.setItem('engineParts', JSON.stringify(parts));
+    alert("Part added successfully!");
+    form.reset();
+    renderParts();
+  }
+
+  renderParts();
+});
+</script>
+
+
+
+</body>
+</html>

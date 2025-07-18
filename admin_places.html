@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Places - Admin</title>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ <header>
+  <div class="navbar">
+      <div class="logo">
+        <img src="images/indian-railway.png" alt="BLW Logo">
+        <h1>Banaras Locomotive Works (BLW)</h1>
+      </div>
+      <nav>
+
+  
+      <ul>
+
+         <li><a href="index.html">Home</a></li>
+        <li><a href="admin_dashboard.html">Dashboard</a></li>
+        <li><a href="admin.html">Logout</a></li>
+          </ul>
+      </nav>
+    </div>
+  </header>
+     
+  <main class="form-container">
+  <h2 class="welcome-heading">Add Place</h2>
+  <form id="placeForm">
+    <input type="text" id="placeName" placeholder="Place Name" required />
+    
+    <!-- Image URL (optional but validated in JS) -->
+    <input type="url" id="placeImage" placeholder="Image URL" />
+     <div class="or-separator">OR</div>
+    <!-- Internal File Upload -->
+    <input type="file" id="placeImageFile" accept="image/*" />
+
+    <textarea id="placeDesc" placeholder="Description" required></textarea>
+    <button type="submit">Add Place</button>
+  </form>
+
+</main>
+
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const placeForm = document.getElementById('placeForm');
+  const placeList = document.getElementById('placeList');
+
+  const places = JSON.parse(localStorage.getItem('places')) || [];
+
+  const renderPlaces = () => {
+    placeList.innerHTML = '';
+    places.forEach(place => {
+      placeList.innerHTML += `
+        <div class="card">
+          <h3>${place.name}</h3>
+          <img src="${place.image}" alt="${place.name}" style="max-width: 100px;" />
+          <p>${place.desc}</p>
+        </div>
+      `;
+    });
+  };
+
+  placeForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('placeName').value.trim();
+    const imageUrl = document.getElementById('placeImage').value.trim();
+    const imageFileInput = document.getElementById('placeImageFile');
+    const desc = document.getElementById('placeDesc').value.trim();
+
+    if (!imageUrl && imageFileInput.files.length === 0) {
+      alert("Please provide either an Image URL or upload an Image File.");
+      return;
+    }
+
+    if (imageFileInput.files.length > 0) {
+      const file = imageFileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageSrc = e.target.result; // base64 string
+        savePlace(name, imageSrc, desc);
+      };
+      reader.readAsDataURL(file); // convert to base64
+    } else {
+      const imageSrc = imageUrl;
+      savePlace(name, imageSrc, desc);
+    }
+  });
+
+  function savePlace(name, image, desc) {
+    const newPlace = { name, image, desc };
+    places.push(newPlace);
+    localStorage.setItem('places', JSON.stringify(places));
+    alert("Place added successfully!");
+    placeForm.reset();
+    renderPlaces();
+  }
+
+  renderPlaces();
+});
+</script>
+
+
+</body>
+</html>
