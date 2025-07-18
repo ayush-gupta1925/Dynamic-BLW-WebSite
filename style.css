@@ -234,11 +234,11 @@ footer {
   }
      
 .search-box input {
-  width: 200px;
+  width: 25rem;
 }
   .carousel-img {
     height: 45vh;
-     width:80vh;/* smaller height on mobile */
+     width:80%;/* smaller height on mobile */
   }
   }
        
