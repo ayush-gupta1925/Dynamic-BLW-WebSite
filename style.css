@@ -225,10 +225,10 @@ footer {
   }
   @media (max-width: 450px) {
       .logo img{
-        margin-left: -15px;
+        margin-left: -13px;
       }
  .logo h1{
-  margin-left: -10px;
+  margin-left: -4px;
   }
     }
        
