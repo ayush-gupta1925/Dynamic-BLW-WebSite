@@ -234,8 +234,13 @@ footer {
   }
      
 .search-box input {
-  width: 100%;}
-    }
+  width: 200px;
+}
+  .carousel-img {
+    height: 45vh;
+     width:80vh;/* smaller height on mobile */
+  }
+  }
        
 .htt{
   border-bottom: none;
