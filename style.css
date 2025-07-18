@@ -223,6 +223,8 @@ footer {
     margin-bottom: 10px;
     padding-bottom: 10px;
   }
+
+       
   @media (max-width: 450px) {
       .logo img{
         margin-left: -8px;
@@ -232,7 +234,7 @@ footer {
   }
      
 .search-box input {
-  width: 80%;}
+  width: 100%;}
     }
        
 .htt{
